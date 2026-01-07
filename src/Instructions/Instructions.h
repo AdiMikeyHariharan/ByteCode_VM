@@ -1,6 +1,6 @@
 #pragma once
 
-enum opcode = {
+enum opcode  {
     OP_CONST,
     OP_ADD,
     OP_SUB,
@@ -8,4 +8,4 @@ enum opcode = {
     OP_DIV,
     OP_PRINT,
     OP_HALT
-}
+};
