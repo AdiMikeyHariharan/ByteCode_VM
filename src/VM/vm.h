@@ -11,3 +11,5 @@ struct VM{
 };
 
 void run(VM &vm);
+
+int readOpcode(VM &vm);

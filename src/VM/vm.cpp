@@ -3,14 +3,17 @@
 
 
 using namespace std;
-
+int readOpcode(VM &vm)
+{
+    return vm.chunk->code[vm.ip++];
+}
 void run(VM &vm){
     while(true){
-      int ins = vm.chunk->code[vm.ip++];
+      int ins = readOpcode(vm);
       
       switch(ins){
         case OP_CONST: {
-            int index = vm.chunk->code[vm.ip++];
+            int index = readOpcode(vm);
             vm.S.push(vm.chunk->constants[index]);
             break;
         }
