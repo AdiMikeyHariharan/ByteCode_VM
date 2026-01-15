@@ -6,7 +6,7 @@ using namespace std;
 
 struct VM{
     ByteCode* chunk;
-    stack<int> S;
+    stack<Value> S;
     int ip;
 };
 

@@ -15,15 +15,44 @@ void run(VM &vm){
             break;
         }
         case OP_ADD: {
-            int b = vm.S.top();
+            Value b = vm.S.top();
             vm.S.pop();
-            int a = vm.S.top();
+            Value a = vm.S.top();
             vm.S.pop();
-            vm.S.push(a+b);
+            Value result = std::visit([](auto x, auto y) -> Value {
+                return x + y;
+            },a , b);
+            vm.S.push(result);
             break;
         }
+        // case OP_SUB: {
+        //     int b = vm.S.top();
+        //     vm.S.pop();
+        //     int a = vm.S.top();
+        //     vm.S.pop();
+        //     vm.S.push(a - b);
+        //     break;
+        // }
+        // case OP_MUL: {
+        //     int b = vm.S.top();
+        //     vm.S.pop();
+        //     int a = vm.S.top();
+        //     vm.S.pop();
+        //     vm.S.push(a * b);
+        //     break;
+        // }
+        // case OP_DIV: {
+        //     int b = vm.S.top();
+        //     vm.S.pop();
+        //     int a = vm.S.top();
+        //     vm.S.pop();
+        //     vm.S.push(a / b);
+        //     break;
+        // }
         case OP_PRINT: {
-            cout<<vm.S.top()<<endl;
+            std::visit([](auto x){
+                std::cout<<x<<endl;
+            },vm.S.top());
             break;
         }
         case OP_HALT:

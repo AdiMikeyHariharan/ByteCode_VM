@@ -8,5 +8,4 @@ using namespace std;
 struct ByteCode{
     vector<Value> constants;
     vector<int> code;
-
 };

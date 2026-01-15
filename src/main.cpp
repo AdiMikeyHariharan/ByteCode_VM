@@ -2,7 +2,7 @@
 
 int main() {
     ByteCode chunk;
-    chunk.constants = {10, 20};
+    chunk.constants = {20, 10.1};
     chunk.code = {
         OP_CONST, 0,
         OP_CONST, 1,
