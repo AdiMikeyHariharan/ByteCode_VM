@@ -6,7 +6,7 @@ int main() {
     chunk.code = {
         OP_CONST, 0,
         OP_CONST, 1,
-        OP_ADD,
+        OP_DIV,
         OP_PRINT,
         OP_HALT
     };

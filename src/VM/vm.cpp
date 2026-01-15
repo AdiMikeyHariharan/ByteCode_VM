@@ -25,30 +25,39 @@ void run(VM &vm){
             vm.S.push(result);
             break;
         }
-        // case OP_SUB: {
-        //     int b = vm.S.top();
-        //     vm.S.pop();
-        //     int a = vm.S.top();
-        //     vm.S.pop();
-        //     vm.S.push(a - b);
-        //     break;
-        // }
-        // case OP_MUL: {
-        //     int b = vm.S.top();
-        //     vm.S.pop();
-        //     int a = vm.S.top();
-        //     vm.S.pop();
-        //     vm.S.push(a * b);
-        //     break;
-        // }
-        // case OP_DIV: {
-        //     int b = vm.S.top();
-        //     vm.S.pop();
-        //     int a = vm.S.top();
-        //     vm.S.pop();
-        //     vm.S.push(a / b);
-        //     break;
-        // }
+        case OP_SUB: {
+            Value b = vm.S.top();
+            vm.S.pop();
+            Value a = vm.S.top();
+            vm.S.pop();
+            Value result = std::visit([](auto x, auto y) -> Value {
+                return x - y;
+            },a , b);
+            vm.S.push(result);
+            break;
+        }
+        case OP_MUL: {
+            Value b = vm.S.top();
+            vm.S.pop();
+            Value a = vm.S.top();
+            vm.S.pop();
+            Value result = std::visit([](auto x, auto y) -> Value {
+                return x * y;
+            },a , b);
+            vm.S.push(result);
+            break;
+        }
+        case OP_DIV: {
+            Value b = vm.S.top();
+            vm.S.pop();
+            Value a = vm.S.top();
+            vm.S.pop();
+            Value result = std::visit([](auto x, auto y) -> Value {
+                return x / y;
+            },a , b);
+            vm.S.push(result);
+            break;
+        }
         case OP_PRINT: {
             std::visit([](auto x){
                 std::cout<<x<<endl;
