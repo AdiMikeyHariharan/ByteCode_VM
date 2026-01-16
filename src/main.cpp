@@ -1,15 +1,7 @@
 #include "VM/vm.h"
-
+#include "Parser/Parser.h"
 int main() {
-    ByteCode chunk;
-    chunk.constants = {20, 10.1};
-    chunk.code = {
-        OP_CONST, 0,
-        OP_CONST, 1,
-        OP_DIV,
-        OP_PRINT,
-        OP_HALT
-    };
+    ByteCode chunk = Parser::parseFile("src/test/program.bc");
 
     VM vm { &chunk, {}, 0 };
     run(vm);
