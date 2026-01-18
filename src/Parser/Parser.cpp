@@ -1,46 +1,71 @@
+// #include "Parser.h"
+
+// Parser::Parser(const std::vector<Token>& tokens)
+//     : tokens(tokens) {}
+
+// std::vector<std::unique_ptr<Decl>> Parser::parse() {
+//     std::vector<std::unique_ptr<Decl>> declarations;
+
+//     while (!match(TokenType::END_OF_FILE)) {
+//         declarations.push_back(declaration());
+//     }
+
+//     return declarations;
+// }
 #include "Parser.h"
-#include <fstream>
-#include <sstream>
-#include <unordered_map>
+#include <stdexcept>
 
-ByteCode Parser::parseFile(const std::string& path) {
-    std::ifstream file(path);
-    std::string line;
+/* ---------------- CONSTRUCTOR ---------------- */
 
-    ByteCode chunk;
+Parser::Parser(const std::vector<Token>& toks)
+    : tokens(toks) {}
 
-    while (std::getline(file, line)) {
-        std::stringstream ss(line);
-        std::string instr;
-        ss >> instr;
+/* ---------------- ENTRY POINT ---------------- */
 
-        if (instr == "CONST") {
-            double value;
-            ss >> value;
+std::vector<std::unique_ptr<Decl>> Parser::parse() {
+    std::vector<std::unique_ptr<Decl>> declarations;
 
-            chunk.constants.push_back(value);
-            chunk.code.push_back(OP_CONST);
-            chunk.code.push_back(chunk.constants.size() - 1);
-        }
-        else if (instr == "DIV") {
-            chunk.code.push_back(OP_DIV);
-        }
-        else if (instr == "ADD") {
-            chunk.code.push_back(OP_ADD);
-        }
-        else if (instr == "MUL") {
-            chunk.code.push_back(OP_MUL);
-        }
-        else if (instr == "SUB") {
-            chunk.code.push_back(OP_SUB);
-        }
-        else if (instr == "PRINT") {
-            chunk.code.push_back(OP_PRINT);
-        }
-        else if (instr == "HALT") {
-            chunk.code.push_back(OP_HALT);
-        }
+    while (!isAtEnd()) {
+        declarations.push_back(declaration());
     }
 
-    return chunk;
+    return declarations;
+}
+
+/* ---------------- CORE PARSER STUBS ---------------- */
+
+std::unique_ptr<Decl> Parser::declaration() {
+    throw std::runtime_error("Parser::declaration() not implemented yet");
+}
+
+/* ---------------- TOKEN UTILITIES ---------------- */
+
+bool Parser::match(TokenType type) {
+    if (check(type)) {
+        advance();
+        return true;
+    }
+    return false;
+}
+
+bool Parser::check(TokenType type) const {
+    if (isAtEnd()) return false;
+    return peek().type == type;
+}
+
+bool Parser::isAtEnd() const {
+    return peek().type == TokenType::END_OF_FILE;
+}
+
+Token Parser::advance() {
+    if (!isAtEnd()) current++;
+    return previous();
+}
+
+Token Parser::peek() const {
+    return tokens[current];
+}
+
+Token Parser::previous() const {
+    return tokens[current - 1];
 }

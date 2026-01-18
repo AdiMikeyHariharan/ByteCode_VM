@@ -1,18 +1,8 @@
-// #include "VM/vm.h"
-// #include "Parser/Parser.h"
-
-// void compileToBC(const std::string&, const std::string&);
-
-// int main() {
-//     compileToBC("src/test/program.src", "src/test/program.bc");
-//     ByteCode chunk = Parser::parseFile("src/test/program.bc");
-
-//     VM vm { &chunk, {}, 0 };
-//     run(vm);
-// }
-
-#include "Lexer.h"
 #include <iostream>
+#include "Lexer.h"
+#include "Parser.h"
+#include "Compiler.h"
+#include "VM/vm.h"
 
 int main() {
     std::string source = R"(
@@ -39,11 +29,22 @@ int main() {
     return 0;
 }
 )";
-
     Lexer lexer(source);
     auto tokens = lexer.tokenize();
 
-    for (const auto& token : tokens) {
-        std::cout << token.lexeme << "  (line " << token.line << ")\n";
-    }
+    // (Optional) Debug tokens
+    // for (const auto& t : tokens)
+    //     std::cout << t.lexeme << " (" << t.line << ")\n
+    Parser parser(tokens);
+    auto ast = parser.parse();
+
+    // 3 Compile AST → ByteCode
+    Compiler compiler;
+    ByteCode chunk = compiler.compile(ast);
+
+    // 4️Execute
+    VM vm{ &chunk, {}, 0 };
+    run(vm);
+
+    return 0;
 }

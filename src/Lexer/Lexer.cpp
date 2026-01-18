@@ -103,7 +103,7 @@ std::vector<Token> Lexer::tokenize() {
         }
     }
 
-    tokens.emplace_back(TokenType::EOF_TOKEN, "", line);
+    tokens.emplace_back(TokenType::END_OF_FILE, "", line);
     return tokens;
 }
 
@@ -206,3 +206,4 @@ Token Lexer::charLiteral() {
 
     return Token(TokenType::CHAR_LITERAL, std::string(1, value), line);
 }
+

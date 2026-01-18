@@ -25,7 +25,7 @@ enum class TokenType {
     LBRACE, RBRACE,
     SEMICOLON, COMMA,
 
-    EOF_TOKEN
+    END_OF_FILE
 };
 
 struct Token {
