@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/bytecode_vm.dir/src/ByteCode/ByteCode.cpp.o CMakeFiles/bytecode_vm.dir/src/Lexer/Lexer.cpp.o CMakeFiles/bytecode_vm.dir/src/Parser/Compiler.cpp.o CMakeFiles/bytecode_vm.dir/src/Parser/Parser.cpp.o CMakeFiles/bytecode_vm.dir/src/VM/vm.cpp.o CMakeFiles/bytecode_vm.dir/src/main.cpp.o -o bytecode_vm 
