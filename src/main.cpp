@@ -6,28 +6,8 @@
 
 int main() {
     std::string source = R"(
-int add(int a, int b) {
-    int result = a + b;
-    return result;
-}
-
-int main() {
     int x = 10;
     int y = 20;
-    int z = add(x, y);
-
-    if (z > 20) {
-        print(z);
-    } else {
-        print(0);
-    }
-
-    while (x < y) {
-        x = x + 1;
-    }
-
-    return 0;
-}
 )";
     Lexer lexer(source);
     auto tokens = lexer.tokenize();
